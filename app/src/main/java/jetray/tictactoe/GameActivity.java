@@ -1,17 +1,11 @@
 package jetray.tictactoe;
 
 import android.app.Dialog;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-public class Afterstart extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
 
     boolean easy;
     boolean medium;
@@ -585,7 +579,7 @@ public class Afterstart extends AppCompatActivity {
 
     public void showDialog(String whoWon, String scoreWon, String whoLose, String scoreLose) {
 
-        final Dialog dialog = new Dialog(Afterstart.this);
+        final Dialog dialog = new Dialog(GameActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_layout);
 //        TextView playerOneScore = dialog.findViewById(R.id.player_one_score);
@@ -798,7 +792,7 @@ public class Afterstart extends AppCompatActivity {
 //    }
 
     private void showExitDialog() {
-        final Dialog dialog = new Dialog(Afterstart.this);
+        final Dialog dialog = new Dialog(GameActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_layout_exit);
         dialog.setCancelable(false);

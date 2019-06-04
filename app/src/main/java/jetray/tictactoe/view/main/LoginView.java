@@ -2,6 +2,7 @@ package jetray.tictactoe.view.main;
 
 import java.util.List;
 
+import jetray.tictactoe.controller.LoginData;
 import jetray.tictactoe.model.Difficult;
 
 /**
@@ -10,4 +11,8 @@ import jetray.tictactoe.model.Difficult;
  */
 public interface LoginView {
     void showDifficulty(List<Difficult> values);
+
+    void render(LoginData loginData);
+
+    void routeToGame(LoginData loginData);
 }
