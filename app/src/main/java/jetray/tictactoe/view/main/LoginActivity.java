@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         p2x.setChecked(loginData.playerTwo.sign == Sign.X);
         p2o.setChecked(loginData.playerTwo.sign == Sign.O);
 
-        difficulty.setSelection(indexOf(
+        difficulty.setSelection(Utils.indexOf(
             Arrays.asList(Difficult.values()),
             diff -> diff == loginData.difficult
         ));
@@ -155,19 +155,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         p2o.setOnClickListener(enabled ? checkboxClickListener : null);
         singleplayer.setOnClickListener(enabled ? checkboxClickListener : null);
         twoplayer.setOnClickListener(enabled ? checkboxClickListener : null);
-    }
-
-    interface Searchable<Item> {
-        boolean search(Item item);
-    }
-
-    public <Item> int indexOf(List<Item> list, Searchable<Item> searchable) {
-        for (int i = 0; i < list.size(); i++) {
-            if (searchable.search(list.get(i))) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     @Override

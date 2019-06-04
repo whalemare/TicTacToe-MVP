@@ -4,6 +4,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import java.util.List;
+
 import jetray.tictactoe.controller.Invokable;
 
 /**
@@ -34,4 +36,18 @@ public class Utils {
 
         return watcher;
     }
+
+    public static <Item> int indexOf(List<Item> list, Searchable<Item> searchable) {
+        for (int i = 0; i < list.size(); i++) {
+            if (searchable.search(list.get(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public interface Searchable<Item> {
+        boolean search(Item item);
+    }
+
 }
