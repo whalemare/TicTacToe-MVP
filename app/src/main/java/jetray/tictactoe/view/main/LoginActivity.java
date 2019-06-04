@@ -1,65 +1,62 @@
-package jetray.tictactoe;
+package jetray.tictactoe.view.main;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.animation.AlphaAnimation;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import android.view.View;
-import android.widget.ArrayAdapter;
+import jetray.tictactoe.Afterstart;
+import jetray.tictactoe.R;
+import jetray.tictactoe.controller.LoginController;
+import jetray.tictactoe.model.Difficult;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginView {
 
-    public EditText plyr1;
-    public EditText plyr2;
+    public EditText playerOne;
+    public EditText playerTwo;
 
     public Spinner difficulty;
-    public CharSequence player1 = "Player 1";
-    public CharSequence player2 = "Player 2";
+    public CharSequence player1 = "Игрок 1";
+    public CharSequence player2 = "Игрок 2";
 
     public CharSequence cloneplayer2;
     boolean player1ax = true;
     boolean selectedSinglePlayer;
-    boolean easy = true;
-    boolean medium = false;
-    boolean hard = false;
-    boolean impossible = false;
     public CheckBox p1x, p1o, p2x, p2o, singleplayer, twoplayer;
+
+    private LoginController controller = new LoginController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//apply the animation ( fade In ) to your LAyout
+        controller.onAttach(this);
 
         if (getIntent().getBooleanExtra("EXIT", false)) {
             finish();
         }
 
-        addItemToDifficultySpinner();
+        playerOne = findViewById(R.id.playerone);
+        playerTwo = findViewById(R.id.playertwo);
 
-        plyr1 = (EditText) findViewById(R.id.playerone);
-        plyr2 = (EditText) findViewById(R.id.playertwo);
-
-
-        p1x = (CheckBox) findViewById(R.id.player1x);
-        p1o = (CheckBox) findViewById(R.id.player1o);
-        p2x = (CheckBox) findViewById(R.id.player2x);
-        p2o = (CheckBox) findViewById(R.id.player2o);
-        singleplayer = (CheckBox) findViewById(R.id.splayer);
-        twoplayer = (CheckBox) findViewById(R.id.tplayer);
+        p1x = findViewById(R.id.player1x);
+        p1o = findViewById(R.id.player1o);
+        p2x = findViewById(R.id.player2x);
+        p2o = findViewById(R.id.player2o);
+        singleplayer = findViewById(R.id.splayer);
+        twoplayer = findViewById(R.id.tplayer);
 
         p1x.setOnClickListener(checkboxClickListener);
         p1o.setOnClickListener(checkboxClickListener);
@@ -70,13 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
         difficulty.setEnabled(false);
 
-
         p1x.setChecked(true);
         p2o.setChecked(true);
         twoplayer.setChecked(true);
 
-
-        plyr1.addTextChangedListener(new TextWatcher() {                               /*this code take player1's name characterwise i.e it takes one character at a time and
+        playerOne.addTextChangedListener(new TextWatcher() {                               /*this code take player1's name characterwise i.e it takes one character at a time and
                                                                                          saved to string variable player1*/
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -93,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        plyr2.addTextChangedListener(new TextWatcher() {
+        playerTwo.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -113,17 +108,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void showDifficulty(List<Difficult> list) {
+        difficulty = findViewById(R.id.difficulty);
 
-    public void addItemToDifficultySpinner() {
-        difficulty = (Spinner) findViewById(R.id.difficulty);
-
-        List<String> list = new ArrayList<String>();
-        list.add("Easy");
-        list.add("Medium");
-        list.add("Hard");
-        list.add("Impossible");
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_item,
+            list.stream().map(difficult -> difficult.title).collect(Collectors.toList())
+        );
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         difficulty.setAdapter(dataAdapter);
 
@@ -132,42 +125,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String temp = parent.getItemAtPosition(position).toString();
-
-                switch (temp) {
-                    case "Easy":
-                        easy = true;
-                        medium = false;
-                        hard = false;
-                        impossible = false;
-                        break;
-                    case "Medium":
-                        easy = false;
-                        medium = true;
-                        hard = false;
-                        impossible = false;
-                        break;
-                    case "Hard":
-                        easy = false;
-                        medium = false;
-                        hard = true;
-                        impossible = false;
-                        break;
-                    case "Impossible":
-                        easy = false;
-                        medium = false;
-                        hard = false;
-                        impossible = true;
-                        break;
-                }
-
+                Difficult difficult = Arrays.stream(Difficult.values())
+                    .filter(diff -> diff.title.equals(temp))
+                    .findFirst()
+                    .get();
+                controller.onSelectDifficult(difficult);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                medium = true;
-                easy = false;
-                hard = false;
-                impossible = false;
+                controller.onSelectDifficult(Difficult.EASY);
             }
         });
     }
@@ -207,20 +174,19 @@ public class MainActivity extends AppCompatActivity {
                         twoplayer.setChecked(false);
                         selectedSinglePlayer = true;
                         cloneplayer2 = player2;
-                        plyr2.setText("CPU");
+                        playerTwo.setText("CPU");
 
-                        plyr1.setImeOptions(EditorInfo.IME_ACTION_DONE);
-                        plyr1.setImeActionLabel("DONE", EditorInfo.IME_ACTION_DONE);
-
+                        playerOne.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                        playerOne.setImeActionLabel("DONE", EditorInfo.IME_ACTION_DONE);
 
                         difficulty.setEnabled(true);
                         break;
                     case R.id.tplayer:
                         singleplayer.setChecked(false);
                         selectedSinglePlayer = false;
-                        plyr2.setText(cloneplayer2);
-                        plyr1.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-                        plyr1.setImeActionLabel("NEXT", EditorInfo.IME_ACTION_NEXT);
+                        playerTwo.setText(cloneplayer2);
+                        playerOne.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                        playerOne.setImeActionLabel("NEXT", EditorInfo.IME_ACTION_NEXT);
                         difficulty.setEnabled(false);
                         break;
                 }
@@ -254,17 +220,17 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.splayer:
                         twoplayer.setChecked(true);
                         selectedSinglePlayer = false;
-                        plyr2.setText(cloneplayer2);
+                        playerTwo.setText(cloneplayer2);
                         difficulty.setEnabled(false);
-                        plyr1.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-                        plyr1.setImeActionLabel("NEXT", EditorInfo.IME_ACTION_NEXT);
+                        playerOne.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                        playerOne.setImeActionLabel("NEXT", EditorInfo.IME_ACTION_NEXT);
                         break;
                     case R.id.tplayer:
                         singleplayer.setChecked(true);
                         selectedSinglePlayer = true;
-                        plyr2.setText("CPU");
-                        plyr1.setImeOptions(EditorInfo.IME_ACTION_DONE);
-                        plyr1.setImeActionLabel("DONE", EditorInfo.IME_ACTION_DONE);
+                        playerTwo.setText("CPU");
+                        playerOne.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                        playerOne.setImeActionLabel("DONE", EditorInfo.IME_ACTION_DONE);
                         difficulty.setEnabled(true);
                         break;
                 }
@@ -275,20 +241,16 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-    public void startgame(View view) {
-
+    public void onClickStartGame(View view) {
         if (!selectedSinglePlayer)
             if (player2.length() == 0)
-                player2 = "player 2";
+                player2 = "Игрок 2";
         if (player1.length() == 0)
-            player1 = "player 1";
+            player1 = "Игрок 1";
 
         CharSequence[] players = {player1, player2};
         Intent i = new Intent(this, Afterstart.class);
-        i.putExtra("easy", easy);
-        i.putExtra("medium", medium);
-        i.putExtra("hard", hard);
-        i.putExtra("impossible", impossible);
+        i.putExtra("difficult", "easy"); // todo: refactor
         i.putExtra("playersnames", players);
         i.putExtra("player1ax", player1ax);
         i.putExtra("selectedsingleplayer", selectedSinglePlayer);

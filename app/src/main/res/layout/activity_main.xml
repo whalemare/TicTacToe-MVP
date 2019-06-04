@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context="jetray.tictactoe.MainActivity">
+    tools:context="jetray.tictactoe.view.main.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,9 +16,9 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:fontFamily="casual"
+            android:fontFamily="@font/karton"
             android:gravity="center"
-            android:text="Tic Tac Toe"
+            android:text="Крестики нолики"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="50dp"
             android:textStyle="bold" />
@@ -28,7 +28,7 @@
             android:id="@+id/playerone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Player 1 name"
+            android:hint="Игрок 1"
             android:imeActionLabel="NEXT"
             android:imeOptions="actionNext"
             android:inputType="textCapSentences|textPersonName"
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:hint="Player 2 Name"
+            android:hint="Игрок 2"
             android:imeActionLabel="DONE"
             android:imeOptions="actionDone"
             android:inputType="textCapSentences|textPersonName" />
@@ -126,14 +126,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="casual"
-                    android:text="Single player" />
+                    android:text="Против ИИ" />
 
                 <CheckBox
                     android:id="@+id/tplayer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="casual"
-                    android:text="Two player" />
+                    android:text="Два игрока" />
 
             </LinearLayout>
 
@@ -142,7 +142,7 @@
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
-                android:hint="difficulty">
+                android:hint="Сложность">
 
             </Spinner>
 
@@ -157,9 +157,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/round"
-        android:onClick="startgame"
+        android:onClick="onClickStartGame"
         android:layout_marginBottom="15dp"
-        android:text="start"
+        android:text="Начнем"
         android:textColor="@android:color/white" />
 
 
