@@ -18,10 +18,17 @@ public class GameInteractor {
     }
 
     public int[][] makeStep(int[][] table, Player player, Step step) {
-        if (table[step.x][step.y] == -1) {
-            table[step.x][step.y] = player.sign.ordinal();
+        int[][] cloneTable = newTable();
+        for (int row = 0; row < cloneTable.length; row++) {
+            for (int column = 0; column < table.length; column++) {
+                cloneTable[row][column] = table[row][column];
+            }
         }
-        return table;
+
+        if (cloneTable[step.x][step.y] == -1) {
+            cloneTable[step.x][step.y] = player.sign.ordinal();
+        }
+        return cloneTable;
     }
 
     // Returns true if there is a win, false otherwise.
@@ -94,5 +101,13 @@ public class GameInteractor {
             {-1, -1, -1},
             {-1, -1, -1}
         };
+    }
+
+    public boolean isNeedNextPlayer(int[][] table, Step step) {
+        if (table[step.x][step.y] != -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

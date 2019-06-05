@@ -30,13 +30,16 @@ public class GameController extends BaseController<GameView> {
 
     public void onPressStep(Step step) {
         Log.d("tag", "onPressStep: player: " + gameData.stepOwner + ";" + step.x + ":" + step.y);
-        gameData.table = gameInteractor.makeStep(gameData.table, gameData.stepOwner, step);
+        int[][] newTable = gameInteractor.makeStep(gameData.table, gameData.stepOwner, step);
 
         if (gameInteractor.isGameFinished(gameData.table)) {
             gameData.gameState = gameInteractor.checkGameResult(gameData.table, gameData.stepOwner);
         } else {
-            gameData.stepOwner = gameInteractor.nextPlayer(loginData, gameData.stepOwner);
+            if (gameInteractor.isNeedNextPlayer(gameData.table, step)) {
+                gameData.stepOwner = gameInteractor.nextPlayer(loginData, gameData.stepOwner);
+            }
         }
+        gameData.table = newTable;
         render();
     }
 
