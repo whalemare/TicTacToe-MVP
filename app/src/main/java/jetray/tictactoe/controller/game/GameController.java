@@ -41,16 +41,18 @@ public class GameController extends BaseController<GameView> {
     }
 
     public void onGameReset() {
+        loginData.playerOne.countWin = 0;
+        loginData.playerTwo.countWin = 0;
+        onNewGame();
+    }
+
+    public void onNewGame() {
         gameData.table = gameInteractor.newTable();
         gameData.gameState = GameState.IN_PROGRESS;
         gameData.stepOwner = gameData.stepOwner.sign == loginData.playerOne.sign
             ? loginData.playerTwo
             : loginData.playerOne;
         render();
-    }
-
-    public void onNewGame() {
-        onGameReset();
     }
 
     private void render() {
