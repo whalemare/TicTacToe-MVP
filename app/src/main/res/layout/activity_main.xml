@@ -8,6 +8,7 @@
     tools:context="jetray.tictactoe.view.main.LoginActivity">
 
     <LinearLayout
+        android:id="@+id/containerMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -123,6 +124,7 @@
 
                 <CheckBox
                     android:id="@+id/splayer"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="casual"
@@ -130,6 +132,7 @@
 
                 <CheckBox
                     android:id="@+id/tplayer"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="casual"
@@ -138,6 +141,7 @@
             </LinearLayout>
 
             <Spinner
+                android:visibility="gone"
                 android:id="@+id/difficulty"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
@@ -156,8 +160,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/round"
         android:layout_marginBottom="15dp"
+        android:background="@drawable/round"
         android:text="Начнем"
         android:textColor="@android:color/white" />
 

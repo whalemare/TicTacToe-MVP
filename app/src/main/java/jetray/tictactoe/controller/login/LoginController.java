@@ -21,7 +21,7 @@ public class LoginController extends BaseController<LoginView> {
         new Player("Игрок 1", Sign.X),
         new Player("Игрок 2", Sign.O),
         Difficult.EASY,
-        true
+        false
     );
 
     @Override
