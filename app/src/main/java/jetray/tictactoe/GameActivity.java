@@ -10,10 +10,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Callable;
 
 import jetray.tictactoe.controller.game.GameController;
 import jetray.tictactoe.model.game.GameData;
+import jetray.tictactoe.model.game.Step;
 import jetray.tictactoe.model.login.LoginData;
 import jetray.tictactoe.view.game.GameView;
 
@@ -61,6 +65,41 @@ public class GameActivity extends AppCompatActivity implements GameView {
         cell_20 = findViewById(R.id.table_20);
         cell_21 = findViewById(R.id.table_21);
         cell_22 = findViewById(R.id.table_22);
+
+        List<View> views = Arrays.asList(
+            cell_00,
+            cell_01,
+            cell_02,
+            cell_10,
+            cell_11,
+            cell_12,
+            cell_20,
+            cell_21,
+            cell_22
+        );
+
+        List<Callable<Step>> steps = Arrays.asList(
+            () -> new Step(0, 0),
+            () -> new Step(0, 1),
+            () -> new Step(0, 2),
+            () -> new Step(1, 0),
+            () -> new Step(1, 1),
+            () -> new Step(1, 2),
+            () -> new Step(2, 0),
+            () -> new Step(2, 1),
+            () -> new Step(2, 2)
+        );
+
+        for (int i = 0; i < views.size(); i++) {
+            int finalI = i;
+            views.get(i).setOnClickListener(v -> {
+                try {
+                    controller.onPressStep(steps.get(finalI).call());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
 
         controller.onAttach(this);
     }
@@ -319,7 +358,6 @@ public class GameActivity extends AppCompatActivity implements GameView {
 //        }
         return false;
     }
-
 
     public boolean ifopowin() {
 //        if ((!easy) || (!medium)) {
