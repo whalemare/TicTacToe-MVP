@@ -1,11 +1,14 @@
-package jetray.tictactoe.controller;
+package jetray.tictactoe.controller.login;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import jetray.tictactoe.controller.BaseController;
 import jetray.tictactoe.model.Difficult;
+import jetray.tictactoe.model.login.LoginData;
 import jetray.tictactoe.model.Player;
 import jetray.tictactoe.model.Sign;
+import jetray.tictactoe.model.storage.MemoryStorage;
 import jetray.tictactoe.view.main.LoginView;
 
 /**
@@ -63,5 +66,10 @@ public class LoginController extends BaseController<LoginView> {
     public void onSelectSinglePlayer(boolean singlePlayer) {
         loginData.singlePlayer = singlePlayer;
         render();
+    }
+
+    public void onClickStart() {
+        MemoryStorage.getInstance().loginData = loginData;
+        isAttached(LoginView::routeToGame);
     }
 }

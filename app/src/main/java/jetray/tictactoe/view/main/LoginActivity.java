@@ -17,9 +17,9 @@ import java.util.stream.Collectors;
 
 import jetray.tictactoe.GameActivity;
 import jetray.tictactoe.R;
-import jetray.tictactoe.Utils;
-import jetray.tictactoe.controller.LoginController;
-import jetray.tictactoe.controller.LoginData;
+import jetray.tictactoe.utils.Utils;
+import jetray.tictactoe.controller.login.LoginController;
+import jetray.tictactoe.model.login.LoginData;
 import jetray.tictactoe.model.Difficult;
 import jetray.tictactoe.model.Sign;
 
@@ -74,6 +74,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         p2o = findViewById(R.id.player2o);
         singleplayer = findViewById(R.id.splayer);
         twoplayer = findViewById(R.id.tplayer);
+        findViewById(R.id.start).setOnClickListener(view -> {
+            controller.onClickStart();
+        });
 
         controller.onAttach(this);
     }
@@ -113,8 +116,15 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void render(LoginData loginData) {
         enableListeners(false);
+        int cursorPosition = playerOne.getSelectionStart();
+        int cursorPositionEnd = playerOne.getSelectionEnd();
         playerOne.setText(loginData.playerOne.name);
+        playerOne.setSelection(cursorPosition, cursorPositionEnd);
+
+        cursorPosition = playerTwo.getSelectionStart();
+        cursorPositionEnd = playerTwo.getSelectionEnd();
         playerTwo.setText(loginData.playerTwo.name);
+        playerTwo.setSelection(cursorPosition, cursorPositionEnd);
 
         p1x.setChecked(loginData.playerOne.sign == Sign.X);
         p1o.setChecked(loginData.playerOne.sign == Sign.O);
@@ -158,7 +168,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void routeToGame(LoginData loginData) {
+    public void routeToGame() {
         Intent i = new Intent(this, GameActivity.class);
         startActivity(i);
     }

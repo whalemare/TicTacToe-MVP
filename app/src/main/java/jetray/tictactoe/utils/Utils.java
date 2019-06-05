@@ -1,12 +1,10 @@
-package jetray.tictactoe;
+package jetray.tictactoe.utils;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
 import java.util.List;
-
-import jetray.tictactoe.controller.Invokable;
 
 /**
  * @author Anton Vlasov - whalemare

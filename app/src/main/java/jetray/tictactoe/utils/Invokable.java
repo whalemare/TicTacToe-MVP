@@ -1,4 +1,4 @@
-package jetray.tictactoe.controller;
+package jetray.tictactoe.utils;
 
 /**
  * @author Anton Vlasov - whalemare

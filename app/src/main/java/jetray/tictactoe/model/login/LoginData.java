@@ -1,4 +1,4 @@
-package jetray.tictactoe.controller;
+package jetray.tictactoe.model.login;
 
 import jetray.tictactoe.model.Difficult;
 import jetray.tictactoe.model.Player;

@@ -1,6 +1,8 @@
 package jetray.tictactoe.controller;
 
 
+import jetray.tictactoe.utils.Invokable;
+
 /**
  * @author Anton Vlasov - whalemare
  * @since 2019
