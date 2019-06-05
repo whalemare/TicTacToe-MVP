@@ -18,13 +18,17 @@ public class GameInteractor {
     }
 
     public int[][] makeStep(int[][] table, Player player, Step step) {
-        table[step.x][step.y] = player.sign.ordinal();
+        if (table[step.x][step.y] == -1) {
+            table[step.x][step.y] = player.sign.ordinal();
+        }
         return table;
     }
 
     // Returns true if there is a win, false otherwise.
     // This calls our other win check functions to check the entire board.
-    public boolean checkForWin(int[][] board) {
+    public boolean isGameFinished(int[][] board) {
+        if (isDraw(board)) return true;
+
         return (checkRowsForWin(board) || checkColumnsForWin(board) || checkDiagonalsForWin(board));
     }
 
@@ -63,5 +67,32 @@ public class GameInteractor {
         return ((c1 != -1) && (c1 == c2) && (c2 == c3));
     }
 
+    public GameState checkGameResult(int[][] table, Player stepOwner) {
+        if (isDraw(table)) {
+            return GameState.DRAW;
+        } else {
+            stepOwner.countWin++;
+            GameState.WIN.player = stepOwner; // sry for this
+            return GameState.WIN;
+        }
+    }
 
+    private boolean isDraw(int[][] table) {
+        for (int row = 0; row < 3; ++row) {
+            for (int col = 0; col < 3; ++col) {
+                if (table[row][col] == -1) {
+                    return false;  // an empty cell found, not draw, exit
+                }
+            }
+        }
+        return true;  // no empty cell, it's a draw
+    }
+
+    public int[][] newTable() {
+        return new int[][]{
+            {-1, -1, -1},
+            {-1, -1, -1},
+            {-1, -1, -1}
+        };
+    }
 }

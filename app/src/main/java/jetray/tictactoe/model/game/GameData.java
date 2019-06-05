@@ -7,8 +7,8 @@ import jetray.tictactoe.model.Player;
  * @since 2019
  */
 public class GameData {
-    public int countWinPlayerOne = 0;
-    public int countWinPlayerTwo = 0;
+
+    public GameState gameState = GameState.IN_PROGRESS;
 
     public int[][] table = {
         {-1, -1, -1},
@@ -17,6 +17,7 @@ public class GameData {
     };
 
     public Player stepOwner;
+
 
     public GameData(Player stepOwner) {
         this.stepOwner = stepOwner;
