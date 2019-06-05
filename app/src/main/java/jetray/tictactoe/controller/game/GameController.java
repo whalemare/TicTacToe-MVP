@@ -3,6 +3,7 @@ package jetray.tictactoe.controller.game;
 import android.util.Log;
 
 import jetray.tictactoe.controller.BaseController;
+import jetray.tictactoe.model.game.GameInteractor;
 import jetray.tictactoe.model.game.GameData;
 import jetray.tictactoe.model.game.Step;
 import jetray.tictactoe.model.login.LoginData;
@@ -17,6 +18,7 @@ public class GameController extends BaseController<GameView> {
 
     private LoginData loginData = MemoryStorage.getInstance().loginData;
     private GameData gameData = new GameData(loginData.playerOne);
+    private GameInteractor gameInteractor = new GameInteractor();
 
     @Override
     public void onAttach(GameView gameView) {
@@ -26,6 +28,9 @@ public class GameController extends BaseController<GameView> {
 
 
     public void onPressStep(Step step) {
-        Log.d("tag", "onPressStep: " + step.x + ":" + step.y);
+        Log.d("tag", "onPressStep: player: " + gameData.stepOwner + ";" + step.x + ":" + step.y);
+        gameData.table = gameInteractor.makeStep(gameData.table, gameData.stepOwner, step);
+        gameData.stepOwner = gameInteractor.nextPlayer(loginData, gameData.stepOwner);
+        isAttached(v -> v.render(loginData, gameData));
     }
 }

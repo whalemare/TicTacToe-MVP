@@ -1,10 +1,26 @@
 package jetray.tictactoe.model.game;
 
+import jetray.tictactoe.model.Player;
+import jetray.tictactoe.model.login.LoginData;
+
 /**
  * @author Anton Vlasov - whalemare
  * @since 2019
  */
 public class GameInteractor {
+
+    public Player nextPlayer(LoginData loginData, Player stepOwner) {
+        if (stepOwner.sign == loginData.playerOne.sign) {
+            return loginData.playerTwo;
+        } else {
+            return loginData.playerOne;
+        }
+    }
+
+    public int[][] makeStep(int[][] table, Player player, Step step) {
+        table[step.x][step.y] = player.sign.ordinal();
+        return table;
+    }
 
     // Returns true if there is a win, false otherwise.
     // This calls our other win check functions to check the entire board.
@@ -16,7 +32,7 @@ public class GameInteractor {
     // Loop through rows and see if any are winners.
     private boolean checkRowsForWin(int[][] board) {
         for (int i = 0; i < 3; i++) {
-            if (checkRowCol(board[i][0], board[i][1], board[i][2]) == true) {
+            if (checkRowCol(board[i][0], board[i][1], board[i][2])) {
                 return true;
             }
         }
@@ -27,7 +43,7 @@ public class GameInteractor {
     // Loop through columns and see if any are winners.
     private boolean checkColumnsForWin(int[][] board) {
         for (int i = 0; i < 3; i++) {
-            if (checkRowCol(board[0][i], board[1][i], board[2][i]) == true) {
+            if (checkRowCol(board[0][i], board[1][i], board[2][i])) {
                 return true;
             }
         }

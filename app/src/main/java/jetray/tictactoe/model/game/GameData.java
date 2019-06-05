@@ -21,4 +21,5 @@ public class GameData {
     public GameData(Player stepOwner) {
         this.stepOwner = stepOwner;
     }
+
 }

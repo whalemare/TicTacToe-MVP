@@ -5,16 +5,16 @@ package jetray.tictactoe.model;
  * @since 2019
  */
 public enum Sign {
-    X {
-        @Override
-        public Sign another() {
-            return O;
-        }
-    },
     O {
         @Override
         public Sign another() {
             return X;
+        }
+    },
+    X {
+        @Override
+        public Sign another() {
+            return O;
         }
     };
 
