@@ -4,7 +4,7 @@ package jetray.tictactoe.controller;
 import jetray.tictactoe.utils.Invokable;
 
 /**
- * @author Anton Vlasov - whalemare
+ * @author Irina Ivanova
  * @since 2019
  */
 public class BaseController<View> {

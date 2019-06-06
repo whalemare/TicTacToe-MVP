@@ -4,7 +4,7 @@ import jetray.tictactoe.model.Player;
 import jetray.tictactoe.model.login.LoginData;
 
 /**
- * @author Anton Vlasov - whalemare
+ * @author Irina Ivanova
  * @since 2019
  */
 public class GameInteractor {

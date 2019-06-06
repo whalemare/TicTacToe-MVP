@@ -12,7 +12,7 @@ import jetray.tictactoe.model.storage.MemoryStorage;
 import jetray.tictactoe.view.main.LoginView;
 
 /**
- * @author Anton Vlasov - whalemare
+ * @author Irina Ivanova
  * @since 2019
  */
 public class LoginController extends BaseController<LoginView> {

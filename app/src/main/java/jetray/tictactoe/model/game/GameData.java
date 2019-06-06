@@ -3,7 +3,7 @@ package jetray.tictactoe.model.game;
 import jetray.tictactoe.model.Player;
 
 /**
- * @author Anton Vlasov - whalemare
+ * @author Irina Ivanova
  * @since 2019
  */
 public class GameData {

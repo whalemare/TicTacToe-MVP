@@ -1,7 +1,7 @@
 package jetray.tictactoe.utils;
 
 /**
- * @author Anton Vlasov - whalemare
+ * @author Irina Ivanova
  * @since 2019
  */
 public interface Invokable<Item> {

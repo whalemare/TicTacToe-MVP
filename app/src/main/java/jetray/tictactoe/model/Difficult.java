@@ -1,7 +1,7 @@
 package jetray.tictactoe.model;
 
 /**
- * @author Anton Vlasov - whalemare
+ * @author Irina Ivanova
  * @since 2019
  */
 public enum Difficult {

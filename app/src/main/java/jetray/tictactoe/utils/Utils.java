@@ -7,7 +7,7 @@ import android.widget.EditText;
 import java.util.List;
 
 /**
- * @author Anton Vlasov - whalemare
+ * @author Irina Ivanova
  * @since 2019
  */
 public class Utils {

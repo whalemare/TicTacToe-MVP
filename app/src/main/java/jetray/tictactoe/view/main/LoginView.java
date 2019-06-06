@@ -6,7 +6,7 @@ import jetray.tictactoe.model.login.LoginData;
 import jetray.tictactoe.model.Difficult;
 
 /**
- * @author Anton Vlasov - whalemare
+ * @author Irina Ivanova
  * @since 2019
  */
 public interface LoginView {
